@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { GuessModel } from '../types';
+import { MAX_LENGTH_OF_WORDS } from '../constants';
 
 interface Props {
-  guessEntered: (guess: GuessModel) => void;
+  guessEntered: (guess: string) => void;
 }
 
 const GuessInput = ({ guessEntered }: Props) => {
@@ -10,7 +10,7 @@ const GuessInput = ({ guessEntered }: Props) => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    guessEntered({guess: inputValue, id: Math.random()});
+    guessEntered(inputValue);
     setInputValue('');
   };
 
@@ -20,10 +20,10 @@ const GuessInput = ({ guessEntered }: Props) => {
       <input
         id="guess-input"
         type="text"
-        minLength={5}
-        maxLength={5}
-        pattern="[a-zA-Z]{5}"
-        title="5 letter word"
+        minLength={MAX_LENGTH_OF_WORDS}
+        maxLength={MAX_LENGTH_OF_WORDS}
+        pattern={`[a-zA-Z]{${MAX_LENGTH_OF_WORDS}}`}
+        title={`${MAX_LENGTH_OF_WORDS} letter word`}
         value={inputValue}
         onChange={(event) =>
           setInputValue(event.target.value.toLocaleUpperCase())

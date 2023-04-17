@@ -1,5 +1,6 @@
 import React from 'react';
 import { GuessModel } from '../types';
+import Guess from './Guess';
 
 interface Props {
   guesses: GuessModel[];
@@ -8,9 +9,7 @@ interface Props {
 const GuessResults = ({ guesses }: Props) => (
   <div className="guess-results">
     {guesses.map((guess) => (
-      <p key={guess.id} className="guess">
-        {guess.guess}
-      </p>
+      <Guess key={guess.id} guess={guess.guess} />
     ))}
   </div>
 );
