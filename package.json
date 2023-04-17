@@ -4,6 +4,7 @@
   "private": true,
   "author": "Andres Sepulveda",
   "dependencies": {
+    "clsx": "^1.2.1",
     "prettier": "^2.6.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

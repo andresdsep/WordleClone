@@ -4,12 +4,13 @@ import Guess from './Guess';
 
 interface Props {
   guesses: GuessModel[];
+  answer: string;
 }
 
-const GuessResults = ({ guesses }: Props) => (
+const GuessResults = ({ guesses, answer }: Props) => (
   <div className="guess-results">
     {guesses.map((guess) => (
-      <Guess key={guess.id} guess={guess.guess} />
+      <Guess key={guess.id} guess={guess.guess} answer={answer} />
     ))}
   </div>
 );

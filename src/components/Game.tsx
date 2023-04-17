@@ -28,7 +28,7 @@ const Game = () => {
 
   return (
     <div>
-      <GuessResults guesses={guesses} />
+      <GuessResults guesses={guesses} answer={answer} />
       <GuessInput guessEntered={onGuessEntered} />
     </div>
   );
