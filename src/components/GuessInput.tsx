@@ -3,9 +3,10 @@ import { MAX_LENGTH_OF_WORDS } from '../constants';
 
 interface Props {
   guessEntered: (guess: string) => void;
+  disableInput: boolean;
 }
 
-const GuessInput = ({ guessEntered }: Props) => {
+const GuessInput = ({ guessEntered, disableInput }: Props) => {
   const [inputValue, setInputValue] = useState('');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +21,7 @@ const GuessInput = ({ guessEntered }: Props) => {
       <input
         id="guess-input"
         type="text"
+        disabled={disableInput}
         minLength={MAX_LENGTH_OF_WORDS}
         maxLength={MAX_LENGTH_OF_WORDS}
         pattern={`[a-zA-Z]{${MAX_LENGTH_OF_WORDS}}`}

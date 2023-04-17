@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { NUM_OF_GUESSES_ALLOWED } from '../constants';
 import { WORDS } from '../data';
-import { GuessModel } from '../types';
+import { GameResultType, GuessModel } from '../types';
 import { range, sample } from '../utils';
+import GameResult from './GameResult';
 import GuessInput from './GuessInput';
 import GuessResults from './GuessResults';
 
@@ -25,11 +26,22 @@ const Game = () => {
     setGuesses(newGuesses);
     setLastGuessIndex(newGuessIndex);
   };
+  const gameResult: GameResultType =
+    guesses[lastGuessIndex]?.guess === answer
+      ? 'win'
+      : lastGuessIndex === NUM_OF_GUESSES_ALLOWED - 1
+      ? 'lose'
+      : undefined;
 
   return (
     <div>
       <GuessResults guesses={guesses} answer={answer} />
-      <GuessInput guessEntered={onGuessEntered} />
+      <GuessInput guessEntered={onGuessEntered} disableInput={!!gameResult} />
+      <GameResult
+        result={gameResult}
+        answer={answer}
+        numOfGuesses={lastGuessIndex + 1}
+      />
     </div>
   );
 };
