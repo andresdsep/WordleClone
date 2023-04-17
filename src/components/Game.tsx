@@ -7,16 +7,21 @@ import GameResult from './GameResult';
 import GuessInput from './GuessInput';
 import GuessResults from './GuessResults';
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+const getNewAnswer = () => sample(WORDS);
 
 const Game = () => {
-  const [guesses, setGuesses] = useState<GuessModel[]>(
-    range(0, NUM_OF_GUESSES_ALLOWED).map((num) => ({ guess: '', id: num }))
-  );
-  const [lastGuessIndex, setLastGuessIndex] = useState(-1);
+  // Pick a random word on every pageload.
+  const [answer, setAnswer] = useState(getNewAnswer);
+  // To make debugging easier, we'll log the solution in the console.
+  console.info({ answer });
+
+  const initialGuesses = range(0, NUM_OF_GUESSES_ALLOWED).map((num) => ({
+    guess: '',
+    id: num,
+  }));
+  const [guesses, setGuesses] = useState<GuessModel[]>(initialGuesses);
+  const initialGuessIndex = -1;
+  const [lastGuessIndex, setLastGuessIndex] = useState(initialGuessIndex);
 
   const onGuessEntered = (guess: string) => {
     if (lastGuessIndex === NUM_OF_GUESSES_ALLOWED) return;
@@ -32,6 +37,11 @@ const Game = () => {
       : lastGuessIndex === NUM_OF_GUESSES_ALLOWED - 1
       ? 'lose'
       : undefined;
+  const onRestart = () => {
+    setAnswer(getNewAnswer);
+    setGuesses(initialGuesses);
+    setLastGuessIndex(initialGuessIndex);
+  };
 
   return (
     <div>
@@ -41,6 +51,7 @@ const Game = () => {
         result={gameResult}
         answer={answer}
         numOfGuesses={lastGuessIndex + 1}
+        onRestart={onRestart}
       />
     </div>
   );
