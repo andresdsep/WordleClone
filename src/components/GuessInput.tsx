@@ -11,6 +11,9 @@ const GuessInput = ({ guessEntered, disableInput }: Props) => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Stop submission if value is empty
+    if (!inputValue) return;
+
     guessEntered(inputValue);
     setInputValue('');
   };
