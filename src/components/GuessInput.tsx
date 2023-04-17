@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+import { GuessModel } from '../types';
 
-const GuessInput = () => {
+interface Props {
+  guessEntered: (guess: GuessModel) => void;
+}
+
+const GuessInput = ({ guessEntered }: Props) => {
   const [inputValue, setInputValue] = useState('');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ guess: inputValue });
+    guessEntered({guess: inputValue, id: Math.random()});
     setInputValue('');
   };
 
